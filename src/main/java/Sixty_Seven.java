@@ -14,10 +14,10 @@ public class Sixty_Seven {
         public String getDescription() {
             return description;
         }
-        public void SetIsDone() {
+        public void setIsDone() {
             this.isDone = true;
         }
-        public void SetIsUndone() {
+        public void setIsUndone() {
             this.isDone = false;
         }
     }
@@ -55,14 +55,14 @@ public class Sixty_Seven {
                 {
                     String[] parts = EchoedLine.split(" ");
                     int TaskID = Integer.parseInt(parts[1]);
-                    List[TaskID-1].SetIsDone();
+                    List[TaskID-1].setIsDone();
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("  [" + List[TaskID-1].getStatusIcon() + "] " + List[TaskID-1].getDescription());
                     System.out.println("━".repeat(60));
                 } else if (EchoedLine.startsWith("unmark")) {
                     String[] parts = EchoedLine.split(" ");
                     int TaskID = Integer.parseInt(parts[1]);
-                    List[TaskID-1].SetIsUndone();
+                    List[TaskID-1].setIsUndone();
                     System.out.println(" OK, I've marked this task as not done yet:");
                     System.out.println("  [" + List[TaskID-1].getStatusIcon() + "] " + List[TaskID-1].getDescription());
                     System.out.println("━".repeat(60));
