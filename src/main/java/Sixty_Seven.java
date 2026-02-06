@@ -9,7 +9,7 @@ public class Sixty_Seven {
     }
     
     public static void printLine(){
-        System.out.println("━".repeat(NUM_OF_DASH_LINE));
+        System.out.println( "____________________________________________________________");
     }
 
     public static void availableTasks(int numberOfTasks){
