@@ -23,6 +23,6 @@ public class Event extends Task {
 
     @Override
     public String toString(){
-        return getTypeIcon() + getStatusIcon()+ " " + description +" (from: " + getFrom() + " to: " + getTo() + ")";
+        return super.toString() +" (from: " + getFrom() + " to: " + getTo() + ")";
     }
 }

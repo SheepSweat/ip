@@ -1,6 +1,7 @@
 import java.util.Scanner;
 public class Sixty_Seven {
-
+    private static final int MAX_TASKS = 100;
+    private static final int NUM_OF_DASH_LINE = 60;
     public static void printEnding(){
         //printLine();
         System.out.println(" Bye. Hope to see you again soon!\n");
@@ -8,51 +9,57 @@ public class Sixty_Seven {
     }
     
     public static void printLine(){
-        System.out.println("━".repeat(60));
+        System.out.println("━".repeat(NUM_OF_DASH_LINE));
+    }
+
+    public static void availableTasks(int numberOfTasks){
+        if(numberOfTasks>=MAX_TASKS)
+        {
+            System.out.println("Too many tasks!");
+        }
     }
 
     private static void loop(Scanner input)throws Exception{
-        Task[] List = new Task[100];
-        int NumberofItems = 0;
-        int TaskID;
+        Task[] taskList = new Task[MAX_TASKS];
+        int numberOfTasks = 0;
+        int taskId;
         while(true){
-            String EchoedLine = input.nextLine();
+            String echoedLine = input.nextLine();
             printLine();
-            String[] parts = EchoedLine.split(" ", 2);
+            String[] parts = echoedLine.split(" ", 2);
             String command = parts[0];
-
-
-            switch (command){
+            switch (command.toLowerCase()){
             case"list":
                 System.out.println("Here are the tasks in your list:");
-                for (int i=0;i<NumberofItems;i++){
-                    System.out.println(Integer.toString(i+1)+"."+List[i].toString());
+                for (int i = 0; i< numberOfTasks; i++){
+                    System.out.println(Integer.toString(i+1)+"."+taskList[i].toString());
                 }
                 break;
             case"add":
-                List[NumberofItems] = new Task(EchoedLine);
-                System.out.println("added: " + EchoedLine);
-                NumberofItems++;
+                availableTasks(numberOfTasks);
+                taskList[numberOfTasks] = new Task(echoedLine);
+                System.out.println("added: " + echoedLine);
+                numberOfTasks++;
                 break;
             case"mark":
                 if (parts.length < 2) {
                     System.out.println("Please specify a task number to mark!");
                     break;
                 }
-                TaskID = Integer.parseInt(parts[1]);
-                List[TaskID-1].setIsDone();
+                taskId = Integer.parseInt(parts[1]);
+                taskList[taskId-1].setIsDone();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println("  " + List[TaskID-1].getStatusIcon() + " " + List[TaskID-1].getDescription());
+                System.out.println("  " + taskList[taskId-1].getStatusIcon() + " " + taskList[taskId-1].getDescription());
                 break;
             case"unmark":
                 if (parts.length < 2) {
                     System.out.println("Please specify a task number to unmark!");
                     break;
                 }
-                TaskID = Integer.parseInt(parts[1]);
-                List[TaskID-1].setIsUndone();
+                taskId = Integer.parseInt(parts[1]);
+                taskList[taskId-1].setIsUndone();
                 System.out.println(" OK, I've marked this task as not done yet:");
-                System.out.println("  " + List[TaskID-1].getStatusIcon() + " " + List[TaskID-1].getDescription());
+                System.out.println("  " + taskList[taskId-1].getStatusIcon() + " " + taskList[taskId-1].getDescription());
                 break;
 
             case "bye":
@@ -61,11 +68,12 @@ public class Sixty_Seven {
             case"deadline":
             case"event":
             case "todo":
-                List[NumberofItems] = Parser.parse(EchoedLine);
-                NumberofItems++;
+                availableTasks(numberOfTasks);
+                taskList[numberOfTasks] = Parser.parse(echoedLine);
+                numberOfTasks++;
                 System.out.println("Got it. I've added this task:");
-                System.out.println(List[NumberofItems-1].toString());
-                System.out.printf("Now you have %d tasks in the list.%n", NumberofItems);
+                System.out.println(taskList[numberOfTasks -1].toString());
+                System.out.printf("Now you have %d tasks in the list.%n", numberOfTasks);
                 break;
 
             default:

@@ -4,32 +4,25 @@ public class Parser {
         String command = parts[0];
         String arguments = (parts.length > 1) ? parts[1] : "";
 
-        switch (command) {
+        switch (command.toLowerCase()) {
         case "todo":
             if (arguments.isEmpty()) throw new Exception("The description of a todo cannot be empty.");
-        {
-            return new ToDos(arguments);
-        }
+            return new ToDo(arguments);
         case "deadline":
             if (arguments.isEmpty()) throw new Exception("The description of a deadline cannot be empty.");
-        {
             String deadline = arguments.trim();
             String[] parts2 = deadline.split("/by");
-            String description = parts2[0];
+            String deadlineDescription = parts2[0];
             String day = parts2[1];
-            return new Deadline(description, day);
-        }
+            return new Deadline(deadlineDescription, day);
         case "event":
             if (arguments.isEmpty()) throw new Exception("The description of a event cannot be empty.");
-        {
-            String event = arguments.trim();
             int fromIndex = arguments.indexOf("/from");
             int toIndex = arguments.indexOf("/to");
-            String description = arguments.substring(0, fromIndex).trim();
+            String eventDescription = arguments.substring(0, fromIndex).trim();
             String from = arguments.substring(fromIndex + 5, toIndex).trim();
             String to = arguments.substring(toIndex + 3).trim();
-            return new Event(description, from, to);
-        }
+            return new Event(eventDescription, from, to);
         default:
             throw new Exception("I'm sorry, but I don't know what that means :-(");
         }

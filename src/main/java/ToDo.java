@@ -1,6 +1,6 @@
-public class ToDos extends Task {
+public class ToDo extends Task {
 
-    public ToDos(String description) {
+    public ToDo(String description) {
         super(description);
     }
     @Override
@@ -9,6 +9,6 @@ public class ToDos extends Task {
     }
     @Override
     public String toString(){
-        return getTypeIcon() + getStatusIcon()+ " " + description;
+        return super.toString();
     }
 }
