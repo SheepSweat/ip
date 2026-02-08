@@ -1,3 +1,5 @@
+package sixtyseven.task;
+
 public class Deadline extends Task {
     //private String description;
     private String day;

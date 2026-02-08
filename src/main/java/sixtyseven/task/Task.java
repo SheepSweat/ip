@@ -1,3 +1,5 @@
+package sixtyseven.task;
+
 public class Task {
     protected String description;
     protected String Type;
