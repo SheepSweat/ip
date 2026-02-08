@@ -6,17 +6,17 @@ public class Parser {
 
         switch (command.toLowerCase()) {
         case "todo":
-            if (arguments.isEmpty()) throw new Exception("The description of a todo cannot be empty.");
+            validateTodoInput(arguments);
             return new ToDo(arguments);
         case "deadline":
-            if (arguments.isEmpty()) throw new Exception("The description of a deadline cannot be empty.");
+            validateDeadlineInput(arguments);
             String deadline = arguments.trim();
             String[] parts2 = deadline.split("/by");
             String deadlineDescription = parts2[0];
             String day = parts2[1];
             return new Deadline(deadlineDescription, day);
         case "event":
-            if (arguments.isEmpty()) throw new Exception("The description of a event cannot be empty.");
+            validateEventInput(arguments);
             int fromIndex = arguments.indexOf("/from");
             int toIndex = arguments.indexOf("/to");
             String eventDescription = arguments.substring(0, fromIndex).trim();
@@ -26,5 +26,19 @@ public class Parser {
         default:
             throw new Exception("I'm sorry, but I don't know what that means :-(");
         }
+    }
+
+    public static void validateTodoInput (String arguments) throws InvalidTodoException{
+        if (arguments.isEmpty()) throw new InvalidTodoException();
+    }
+
+    public static void validateDeadlineInput (String arguments) throws InvalidDeadlineException{
+        if (arguments.isEmpty()) throw new InvalidDeadlineException();
+        if (!arguments.contains("/by")) throw new InvalidDeadlineException();
+    }
+
+    public static void validateEventInput (String arguments) throws InvalidEventException{
+        if (arguments.isEmpty()) throw new InvalidEventException();
+        if(!arguments.contains("/from") && !arguments.contains("/to")) throw new InvalidEventException();
     }
 }

@@ -19,70 +19,88 @@ public class Sixty_Seven {
         }
     }
 
-    private static void loop(Scanner input)throws Exception{
+    public static void validateInput(String input)throws EmptyDescriptionException{
+        if (input.isEmpty()) {
+            throw new EmptyDescriptionException();
+        }
+    }
+
+    public static void validateMarkingInput(String[] input, int numberOfTasks) throws EmptyTaskNumberException,InvalidTaskNumberException{
+        if(input.length<2){
+            throw new EmptyTaskNumberException();
+        } else if ((Integer.parseInt(input[1])>=numberOfTasks)) {
+            throw new InvalidTaskNumberException();
+        }
+    }
+
+
+
+    private static void loop(Scanner input)throws Exception {
         Task[] taskList = new Task[MAX_TASKS];
         int numberOfTasks = 0;
         int taskId;
-        while(true){
-            String echoedLine = input.nextLine();
-            printLine();
-            String[] parts = echoedLine.split(" ", 2);
-            String command = parts[0];
-            switch (command.toLowerCase()){
-            case"list":
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i< numberOfTasks; i++){
-                    System.out.println(Integer.toString(i+1)+"."+taskList[i].toString());
-                }
-                break;
-            case"add":
-                availableTasks(numberOfTasks);
-                taskList[numberOfTasks] = new Task(echoedLine);
-                System.out.println("added: " + echoedLine);
-                numberOfTasks++;
-                break;
-            case"mark":
-                if (parts.length < 2) {
-                    System.out.println("Please specify a task number to mark!");
-                    break;
-                }
-                taskId = Integer.parseInt(parts[1]);
-                taskList[taskId-1].setIsDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println("  " + taskList[taskId-1].getStatusIcon() + " " + taskList[taskId-1].getDescription());
-                break;
-            case"unmark":
-                if (parts.length < 2) {
-                    System.out.println("Please specify a task number to unmark!");
-                    break;
-                }
-                taskId = Integer.parseInt(parts[1]);
-                taskList[taskId-1].setIsUndone();
-                System.out.println(" OK, I've marked this task as not done yet:");
-                System.out.println("  " + taskList[taskId-1].getStatusIcon() + " " + taskList[taskId-1].getDescription());
-                break;
 
-            case "bye":
-                printEnding();
-                return;
-            case"deadline":
-            case"event":
-            case "todo":
-                availableTasks(numberOfTasks);
-                taskList[numberOfTasks] = Parser.parse(echoedLine);
-                numberOfTasks++;
-                System.out.println("Got it. I've added this task:");
-                System.out.println(taskList[numberOfTasks -1].toString());
-                System.out.printf("Now you have %d tasks in the list.%n", numberOfTasks);
-                break;
+            while (true) {
+                try {
+                String echoedLine = input.nextLine();
+                printLine();
+                String[] parts = echoedLine.split(" ", 2);
+                String command = parts[0];
+                validateInput(command.toLowerCase());
+                switch (command.toLowerCase()) {
+                case "list":
+                    System.out.println("Here are the tasks in your list:");
+                    for (int i = 0; i < numberOfTasks; i++) {
+                        System.out.println(Integer.toString(i + 1) + "." + taskList[i].toString());
+                    }
+                    break;
+                case "add":
+                    availableTasks(numberOfTasks);
+                    taskList[numberOfTasks] = new Task(echoedLine);
+                    System.out.println("added: " + echoedLine);
+                    numberOfTasks++;
+                    break;
+                case "mark":
+                    validateMarkingInput(parts,numberOfTasks);
+                    taskId = Integer.parseInt(parts[1]);
+                    taskList[taskId - 1].setIsDone();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("  " + taskList[taskId - 1].getStatusIcon() + " " + taskList[taskId - 1].getDescription());
+                    break;
+                case "unmark":
+                    validateMarkingInput(parts,numberOfTasks);
+                    taskId = Integer.parseInt(parts[1]);
+                    taskList[taskId - 1].setIsUndone();
+                    System.out.println(" OK, I've marked this task as not done yet:");
+                    System.out.println("  " + taskList[taskId - 1].getStatusIcon() + " " + taskList[taskId - 1].getDescription());
+                    break;
 
-            default:
-                System.out.println("I'm sorry, I don't know what '" + command + "' means.");
-                break;
-            }
-            printLine();
-            }
+                case "bye":
+                    printEnding();
+                    return;
+                case "deadline":
+                case "event":
+                case "todo":
+                    availableTasks(numberOfTasks);
+                    taskList[numberOfTasks] = Parser.parse(echoedLine);
+                    numberOfTasks++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(taskList[numberOfTasks - 1].toString());
+                    System.out.printf("Now you have %d tasks in the list.%n", numberOfTasks);
+                    break;
+
+                default:
+                    throw new InvalidCommandException();
+                }
+                printLine();
+            }catch (Sixty_SevenException e){
+                    System.out.println(e.getMessage());
+                    printLine();
+                }
         }
+
+    }
+
 
     private static void startSeq() {
         printLine();
