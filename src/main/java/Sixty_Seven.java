@@ -1,4 +1,13 @@
 import java.util.Scanner;
+
+import sixtyseven.Exceptions.EmptyDescriptionException;
+import sixtyseven.Exceptions.EmptyTaskNumberException;
+import sixtyseven.Exceptions.InvalidCommandException;
+import sixtyseven.Exceptions.InvalidTaskNumberException;
+import sixtyseven.Exceptions.Sixty_SevenException;
+import sixtyseven.task.Task;
+import sixtyseven.Parser;
+
 public class Sixty_Seven {
     private static final int MAX_TASKS = 100;
     private static final int NUM_OF_DASH_LINE = 60;
@@ -19,13 +28,13 @@ public class Sixty_Seven {
         }
     }
 
-    public static void validateInput(String input)throws EmptyDescriptionException{
+    public static void validateInput(String input)throws EmptyDescriptionException {
         if (input.isEmpty()) {
             throw new EmptyDescriptionException();
         }
     }
 
-    public static void validateMarkingInput(String[] input, int numberOfTasks) throws EmptyTaskNumberException,InvalidTaskNumberException{
+    public static void validateMarkingInput(String[] input, int numberOfTasks) throws EmptyTaskNumberException, InvalidTaskNumberException {
         if(input.length<2){
             throw new EmptyTaskNumberException();
         } else if ((Integer.parseInt(input[1])>=numberOfTasks)) {

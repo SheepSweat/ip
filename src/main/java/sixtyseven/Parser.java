@@ -1,3 +1,13 @@
+package sixtyseven;
+
+import sixtyseven.Exceptions.InvalidDeadlineException;
+import sixtyseven.Exceptions.InvalidEventException;
+import sixtyseven.Exceptions.InvalidTodoException;
+import sixtyseven.task.Deadline;
+import sixtyseven.task.Event;
+import sixtyseven.task.Task;
+import sixtyseven.task.ToDo;
+
 public class Parser {
     public static Task parse(String input) throws Exception {
         String[] parts = input.split(" ", 2);
@@ -28,16 +38,16 @@ public class Parser {
         }
     }
 
-    public static void validateTodoInput (String arguments) throws InvalidTodoException{
+    public static void validateTodoInput (String arguments) throws InvalidTodoException {
         if (arguments.isEmpty()) throw new InvalidTodoException();
     }
 
-    public static void validateDeadlineInput (String arguments) throws InvalidDeadlineException{
+    public static void validateDeadlineInput (String arguments) throws InvalidDeadlineException {
         if (arguments.isEmpty()) throw new InvalidDeadlineException();
         if (!arguments.contains("/by")) throw new InvalidDeadlineException();
     }
 
-    public static void validateEventInput (String arguments) throws InvalidEventException{
+    public static void validateEventInput (String arguments) throws InvalidEventException {
         if (arguments.isEmpty()) throw new InvalidEventException();
         if(!arguments.contains("/from") && !arguments.contains("/to")) throw new InvalidEventException();
     }

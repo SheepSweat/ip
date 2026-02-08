@@ -1,3 +1,5 @@
+package sixtyseven.task;
+
 public class Event extends Task {
     //private  String event;
     private String from;
