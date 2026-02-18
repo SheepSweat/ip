@@ -3,6 +3,7 @@ package sixtyseven.task;
 public class Task {
     protected String description;
     protected String Type;
+    protected String command;
     protected boolean isDone;
 
     public Task(String description) {
@@ -26,6 +27,10 @@ public class Task {
         this.isDone = true;
     }
 
+    public void setCommand(String description) {
+        this.command = description;
+    }
+
     public void setIsUndone() {
         this.isDone = false;
     }
@@ -40,5 +45,12 @@ public class Task {
 
     public String toString(){
         return getTypeIcon()+getStatusIcon()+ " " + description;
+    }
+
+    public String toSaveString() {
+        // We use a "|" as a separator because it's unlikely to be in your task description
+        // Format: status | command
+        int status = this.isDone ? 1 : 0;
+        return status + " | " + this.command;
     }
 }
