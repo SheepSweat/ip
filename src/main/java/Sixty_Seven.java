@@ -34,10 +34,10 @@ public class Sixty_Seven {
         }
     }
 
-    public static void validateMarkingInput(String[] input, int numberOfTasks) throws EmptyTaskNumberException, InvalidTaskNumberException {
+    public static void validateNumberedInput(String[] input, int numberOfTasks) throws EmptyTaskNumberException, InvalidTaskNumberException {
         if(input.length<2){
             throw new EmptyTaskNumberException();
-        } else if ((Integer.parseInt(input[1])>=numberOfTasks)) {
+        } else if ((Integer.parseInt(input[1])>numberOfTasks)) {
             throw new InvalidTaskNumberException();
         }
     }
@@ -70,14 +70,14 @@ public class Sixty_Seven {
                     numberOfTasks++;
                     break;
                 case "mark":
-                    validateMarkingInput(parts,numberOfTasks);
+                    validateNumberedInput(parts,numberOfTasks);
                     taskId = Integer.parseInt(parts[1]);
                     taskList[taskId - 1].setIsDone();
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("  " + taskList[taskId - 1].getStatusIcon() + " " + taskList[taskId - 1].getDescription());
                     break;
                 case "unmark":
-                    validateMarkingInput(parts,numberOfTasks);
+                    validateNumberedInput(parts,numberOfTasks);
                     taskId = Integer.parseInt(parts[1]);
                     taskList[taskId - 1].setIsUndone();
                     System.out.println(" OK, I've marked this task as not done yet:");
@@ -95,6 +95,19 @@ public class Sixty_Seven {
                     numberOfTasks++;
                     System.out.println("Got it. I've added this task:");
                     System.out.println(taskList[numberOfTasks - 1].toString());
+                    System.out.printf("Now you have %d tasks in the list.%n", numberOfTasks);
+                    break;
+                case "delete":
+                    validateNumberedInput(parts,numberOfTasks);
+                    taskId = Integer.parseInt(parts[1]);
+                    Task taskToDelete = taskList[taskId - 1];
+                    for ( int i = taskId-1; i < numberOfTasks-1; i++ ) {
+                        taskList[i]=taskList[i+1];
+                    }
+                    taskList[numberOfTasks-1] = null;
+                    numberOfTasks--;
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(taskToDelete.toString());
                     System.out.printf("Now you have %d tasks in the list.%n", numberOfTasks);
                     break;
 
