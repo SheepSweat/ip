@@ -149,10 +149,9 @@ public class Sixty_Seven {
                     System.out.printf("Now you have %d tasks in the list.%n", numberOfTasks);
                     saveToFile(filename, taskList, numberOfTasks);
                     break;
-<<<<<<< HEAD
-=======
+
                 case "delete":
-                    validateNumberedInput(parts,numberOfTasks);
+                    validateMarkingInput(parts,numberOfTasks);
                     taskId = Integer.parseInt(parts[1]);
                     Task taskToDelete = taskList[taskId - 1];
                     for ( int i = taskId-1; i < numberOfTasks-1; i++ ) {
@@ -165,7 +164,6 @@ public class Sixty_Seven {
                     System.out.printf("Now you have %d tasks in the list.%n", numberOfTasks);
                     saveToFile(filename, taskList, numberOfTasks);
                     break;
->>>>>>> 904059e (Implemented Save function)
 
                 default:
                     throw new InvalidCommandException();
