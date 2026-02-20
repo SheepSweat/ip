@@ -151,20 +151,6 @@ public class Sixty_Seven {
                     break;
 
                 case "delete":
-                    validateMarkingInput(parts,numberOfTasks);
-                    taskId = Integer.parseInt(parts[1]);
-                    Task taskToDelete = taskList[taskId - 1];
-                    for ( int i = taskId-1; i < numberOfTasks-1; i++ ) {
-                        taskList[i]=taskList[i+1];
-                    }
-                    taskList[numberOfTasks-1] = null;
-                    numberOfTasks--;
-                    System.out.println("Noted. I've removed this task:");
-                    System.out.println(taskToDelete.toString());
-                    System.out.printf("Now you have %d tasks in the list.%n", numberOfTasks);
-                    saveToFile(filename, taskList, numberOfTasks);
-                    break;
-                case "delete":
                     validateNumberedInput(parts,numberOfTasks);
                     taskId = Integer.parseInt(parts[1]);
                     Task taskToDelete = taskList[taskId - 1];
@@ -176,6 +162,7 @@ public class Sixty_Seven {
                     System.out.println("Noted. I've removed this task:");
                     System.out.println(taskToDelete.toString());
                     System.out.printf("Now you have %d tasks in the list.%n", numberOfTasks);
+                    saveToFile(filename, taskList, numberOfTasks);
                     break;
 
                 default:
