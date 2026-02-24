@@ -1,27 +1,25 @@
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 
-import sixtyseven.Exceptions.EmptyDescriptionException;
-import sixtyseven.Exceptions.EmptyTaskNumberException;
-import sixtyseven.Exceptions.InvalidCommandException;
-import sixtyseven.Exceptions.InvalidTaskNumberException;
 import sixtyseven.Exceptions.Sixty_SevenException;
 import sixtyseven.Ui;
 import sixtyseven.task.CommandHandler;
 import sixtyseven.task.Storage;
 import sixtyseven.task.Task;
-import sixtyseven.Parser;
 
+/**
+ * Main class for the Sixty_Seven task management application.
+ * Coordinates the interaction between storage, logic, and user interface.
+ */
 public class Sixty_Seven {
     private Storage File;
     private ArrayList<Task> taskList;
     private Ui userInterface;
-    private String filename = "C:\\nus\\NUS MODs\\CS2113\\task.txt";
-
+    private String filename = "./data/task.txt";
+    /**
+     * Initializes a new instance of the Sixty_Seven application.
+     * Sets up the UI, loads the storage file, and populates the task list from disk.
+     * @throws RuntimeException if the file loading process fails unexpectedly.
+     */
     public Sixty_Seven() {
         userInterface = new Ui();
         File = new Storage(filename);
@@ -32,6 +30,13 @@ public class Sixty_Seven {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Starts the main application loop.
+     * Continuously reads user input, processes commands via the CommandHandler,
+     * and displays output until the "bye" command is received.
+     * @throws Exception if an error occurs during command processing.
+     */
     public void loop()throws Exception {
         userInterface.showWelcome();
             while (true) {
@@ -50,7 +55,11 @@ public class Sixty_Seven {
                 }
         }
     }
-
+    /**
+     * The entry point of the application.
+     * @param args Command line arguments (not used).
+     * @throws Exception if the application loop encounters a fatal error.
+     */
     public static void main(String[] args) throws Exception {
         new Sixty_Seven().loop();
     }
