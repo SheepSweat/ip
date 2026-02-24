@@ -24,7 +24,7 @@ public class CommandHandler {
         int taskId;
             switch (command.toLowerCase()) {
             case "list":
-                ui.showList(taskList, taskList.size());
+                ui.showList(taskList);
                 break;
             case "add":
                 Task newTask = new Task(input);
@@ -52,7 +52,6 @@ public class CommandHandler {
                 ui.showTaskUnmarked(unmarkedString);
                 Store.saveToFile(filename, taskList, taskList.size());
                 break;
-
             case "bye":
                 ui.showEnding();
                 return;
@@ -75,6 +74,10 @@ public class CommandHandler {
                 String taskInfoDeleteTask = taskToDelete.toString();
                 ui.showTaskDeleted(taskInfoDeleteTask, taskList.size());
                 Store.saveToFile(filename, taskList, taskList.size());
+                break;
+
+            case "find":
+                ui.showFind(taskList,arguments);
                 break;
             default:
                 throw new InvalidCommandException();

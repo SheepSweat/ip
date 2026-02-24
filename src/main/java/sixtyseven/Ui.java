@@ -63,10 +63,21 @@ public class Ui {
         System.out.println(" ☹ OOPS!!! " + message);
     }
 
-    public void showList(ArrayList<Task> taskList, int numberOfTasks){
+    public void showList(ArrayList<Task> taskList){
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < numberOfTasks; i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             System.out.println(Integer.toString(i + 1) + "." + taskList.get(i).toString());
+        }
+    }
+
+    public void showFind(ArrayList<Task> taskList, String input){
+        System.out.println("Here are the matching tasks in your list:");
+        int displayNumber = 0;
+        for (Task task : taskList) {
+            if (task.getDescription().contains(input)) {
+                displayNumber++;
+                System.out.println(Integer.toString(displayNumber) + "." + task.toString());
+            }
         }
     }
 }
