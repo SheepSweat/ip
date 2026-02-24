@@ -8,6 +8,11 @@ import sixtyseven.task.Event;
 import sixtyseven.task.Task;
 import sixtyseven.task.ToDo;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
+
 public class Parser {
     public static Task parse(String input) throws Exception {
         String[] parts = input.split(" ", 2);
@@ -24,7 +29,8 @@ public class Parser {
             String[] parts2 = deadline.split("/by");
             String deadlineDescription = parts2[0];
             String day = parts2[1];
-            return new Deadline(deadlineDescription, day);
+            String dayFormatted =convertDateFormatter(day);
+            return new Deadline(deadlineDescription, dayFormatted);
         case "event":
             validateEventInput(arguments);
             int fromIndex = arguments.indexOf("/from");
@@ -50,5 +56,14 @@ public class Parser {
     public static void validateEventInput (String arguments) throws InvalidEventException {
         if (arguments.isEmpty()) throw new InvalidEventException();
         if(!arguments.contains("/from") && !arguments.contains("/to")) throw new InvalidEventException();
+    }
+
+    public static String convertDateFormatter(String input) {
+        try {
+            LocalDate localDate = LocalDate.parse(input, DateTimeFormatter.ofPattern(" yyyy-MM-dd"));
+            return localDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        }catch(DateTimeParseException e){
+            return input;
+        }
     }
 }
