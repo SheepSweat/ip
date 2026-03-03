@@ -30,13 +30,13 @@ public class Sixty_Seven {
             throw new RuntimeException(e);
         }
     }
-
     /**
      * Starts the main application loop.
      * Continuously reads user input, processes commands via the CommandHandler,
      * and displays output until the "bye" command is received.
      * @throws Exception if an error occurs during command processing.
      */
+
     public void loop()throws Exception {
         userInterface.showWelcome();
             while (true) {
