@@ -7,7 +7,7 @@ Sixty_seven is a task manager chatbot that helps you track your todos, deadlines
 1. Ensure you have **Java 11 or above** installed.
 2. Download `Sixty_seven.jar` from the latest release.
 3. Open a terminal in the folder containing the jar file.
-4. Run: `java -jar Genie.jar`
+4. Run: `java -jar Sixty_Seven.jar`
 5. Type a command and press Enter.
 
 ## Task Management
