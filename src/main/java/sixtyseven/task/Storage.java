@@ -18,7 +18,11 @@ public class Storage {
         this.filePath = filePath;
         ensureFileExists();
     }
-    
+    /**
+     * Checks if a txt file exist to copy from
+     * if not create a file to write to
+         * @throws IOException if unable to create file
+     */
     private void ensureFileExists() throws IOException {
         File file = new File(filePath);
         File parentDir = file.getParentFile();
