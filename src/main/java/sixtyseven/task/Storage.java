@@ -12,10 +12,31 @@ import sixtyseven.Parser;
 public class Storage {
     private String filePath;
 
-    public Storage(String filePath) {
+    public Storage(String filePath) throws Exception {
         this.filePath = filePath;
+        ensureFileExists();
     }
+    
+    private void ensureFileExists() throws IOException {
+        File file = new File(filePath);
+        File parentDir = file.getParentFile();
 
+            if(!parentDir.exists()){
+                parentDir.mkdirs();
+            }
+
+            if(!file.exists()){
+                file.createNewFile();
+            }
+        }
+
+    /**
+     * Saves status of ArrayList into txt file.
+     * @param path txt file path
+     * @param taskList Arraylist
+     * @param numberOfTasks size of ArrayList
+     * @throws IOException if unable to find file
+     */
     public void saveToFile(String path, ArrayList<Task> taskList, int numberOfTasks) throws IOException {
         FileWriter fw = new FileWriter(path);
         for (int i = 0; i < numberOfTasks; i++) {
