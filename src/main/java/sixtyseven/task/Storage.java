@@ -14,9 +14,23 @@ import sixtyseven.Parser;
 public class Storage {
     private String filePath;
 
-    public Storage(String filePath) {
+    public Storage(String filePath) throws Exception {
         this.filePath = filePath;
+        ensureFileExists();
     }
+    
+    private void ensureFileExists() throws IOException {
+        File file = new File(filePath);
+        File parentDir = file.getParentFile();
+
+            if(!parentDir.exists()){
+                parentDir.mkdirs();
+            }
+
+            if(!file.exists()){
+                file.createNewFile();
+            }
+        }
 
     /**
      * Saves status of ArrayList into txt file.

@@ -22,9 +22,9 @@ public class Sixty_Seven {
      */
     public Sixty_Seven() {
         userInterface = new Ui();
-        File = new Storage(filename);
 
         try{
+            File = new Storage(filename);
             taskList = File.readFileContents();
         } catch (Exception e) {
             throw new RuntimeException(e);
