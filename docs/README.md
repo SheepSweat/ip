@@ -1,30 +1,64 @@
-# Duke User Guide
+# Sixty_seven project template
 
-// Update the title above to match the actual product name
+Sixty_seven is a task manager chatbot that helps you track your todos, deadlines, and events
 
-// Product screenshot goes here
+## Quick Start
 
-// Product intro goes here
+1. Ensure you have Java 11 or above installed.
+2. Download Sixty_seven.jar from the latest release.
+3. Open a terminal in the folder containing the jar file.
+4. Run: java -jar Genie.jar
+5. Type a command and press Enter.
 
-## Adding deadlines
+## Task Management
+Sixty_Seven supports three distinct task types to categorize your workload:
 
-// Describe the action and its outcome.
+Todo: Basic tasks without a specific timeline.
 
-// Give examples of usage
+Deadline: Tasks that need to be done before a specific date/time.
 
-Example: `keyword (optional arguments)`
+Event: Tasks that occur during a specific time frame.
 
-// A description of the expected outcome goes here
+## Features
+### Listing all tasks: list
+Shows all tasks currently stored in your list with their status icons and types.
 
-```
-expected output
-```
+Format: list
 
-## Feature ABC
+### Adding a Todo: todo
+Adds a task without any date constraints.
 
-// Feature details
+Format: todo DESCRIPTION
 
+Example: todo finish CS2113 implementation
 
-## Feature XYZ
+### Adding a Deadline: deadline
+Adds a task with a "by" date.
 
-// Feature details
+Format: deadline DESCRIPTION /by DATE
+
+Example: deadline submit lab report /by Sunday 2359
+
+### Adding an Event: event
+Adds a task with a start and end time.
+
+Format: event DESCRIPTION /from START_TIME /to END_TIME
+
+Example: event Career Fair /from 2pm /to 5pm
+
+### Marking/Unmarking Tasks: mark / unmark
+Updates the completion status of a specific task.
+
+Format: mark INDEX or unmark INDEX
+
+Example: mark 1 (Marks the first task in the list as done).
+
+### Deleting a Task: delete
+Removes a task from the list permanently.
+
+Format: delete INDEX
+
+### Exiting the program: bye
+Exits the application.
+
+Format: bye
