@@ -1,21 +1,29 @@
 package sixtyseven.task;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import sixtyseven.Exceptions.EmptyDescriptionException;
 import sixtyseven.Exceptions.EmptyTaskNumberException;
 import sixtyseven.Exceptions.InvalidCommandException;
 import sixtyseven.Exceptions.InvalidTaskNumberException;
-import sixtyseven.Exceptions.Sixty_SevenException;
 import sixtyseven.Parser;
 
 import sixtyseven.Ui;
 
-
-public class CommandHandler {
-
+/**
+ * abstract class to handle any commands passed.
+ */
+public abstract class CommandHandler {
+    /**
+     *  Handles any command input from the user.
+     *  if command is unrecognised throw and exception and exit.
+     * @param input User input from keyboard.
+     * @param Store Storage instance in charge of storing commands/list to txt file.
+     * @param ui User interface instance in charge of printing to terminal.
+     * @param taskList Array list to hold all the tasks.
+     * @param filename Filepath required to store the txt file.
+     * @throws Exception if command is unrecognised.
+     */
     public static void handleCommand(String input, Storage Store, Ui ui, ArrayList<Task> taskList, String filename) throws Exception {
         String[] parts = input.split(" ", 2);
         String command = parts[0];
@@ -24,7 +32,7 @@ public class CommandHandler {
         int taskId;
             switch (command.toLowerCase()) {
             case "list":
-                ui.showList(taskList, taskList.size());
+                ui.showList(taskList);
                 break;
             case "add":
                 Task newTask = new Task(input);
@@ -52,7 +60,6 @@ public class CommandHandler {
                 ui.showTaskUnmarked(unmarkedString);
                 Store.saveToFile(filename, taskList, taskList.size());
                 break;
-
             case "bye":
                 ui.showEnding();
                 return;
@@ -76,17 +83,33 @@ public class CommandHandler {
                 ui.showTaskDeleted(taskInfoDeleteTask, taskList.size());
                 Store.saveToFile(filename, taskList, taskList.size());
                 break;
+
+            case "find":
+                ui.showFind(taskList,arguments);
+                break;
             default:
                 throw new InvalidCommandException();
             }
     }
 
+    /**
+     *
+     * @param input String input to be validated.
+     * @throws EmptyDescriptionException if there is no input.
+     */
     public static void validateInput(String input) throws EmptyDescriptionException {
         if (input.isEmpty()) {
             throw new EmptyDescriptionException();
         }
     }
 
+    /**
+     *
+     * @param input String array containing the TaskID to validate.
+     * @param numberOfTasks total number of tasks in taskList.
+     * @throws EmptyTaskNumberException if there is no number input.
+     * @throws InvalidTaskNumberException if the number input is invalid.
+     */
     public static void validateNumberedInput(String[] input, int numberOfTasks) throws EmptyTaskNumberException, InvalidTaskNumberException {
         if (input.length < 2 || input[1].trim().isEmpty()) {
             throw new EmptyTaskNumberException();

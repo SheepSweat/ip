@@ -6,9 +6,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import sixtyseven.Exceptions.Sixty_SevenException;
 import sixtyseven.Parser;
 
+/**
+ *  Represents the mechanism to store or retrieve inputs from txt file
+ */
 public class Storage {
     private String filePath;
 
@@ -46,6 +48,11 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Reads txt file and copies content into Arraylist
+     * @return ArrayList
+     * @throws Exception if unable to scan,find file or parse error.
+     */
 
     public ArrayList<Task> readFileContents() throws Exception {
         ArrayList<Task> taskList = new ArrayList<>();
