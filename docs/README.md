@@ -71,6 +71,7 @@ Exits the application.
 Format: bye
 
 ## Command Summary
+
 | Action | Format, Examples |
 | :--- | :--- |
 | **Todo** | `todo DESCRIPTION`<br>e.g., `todo read book` |
