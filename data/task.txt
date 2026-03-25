@@ -1,6 +1,0 @@
-1 | todo read book
-1 | deadline return book /by June 6th
-0 | event project meeting /from Aug 6th 2pm /to 4pm
-1 | todo join sports club
-0 | todo borrow book
-0 | deadline 1234 /by 1019-11-04

@@ -52,6 +52,10 @@ public class Sixty_Seven {
                 }catch(Sixty_SevenException e){
                     userInterface.showError(e.getMessage());
                     userInterface.showLine();
+                }catch (NumberFormatException e) {
+                    // Handles "mark a", "delete b", etc.
+                    userInterface.showError("Error: Please enter a valid number!");
+                    userInterface.showLine();
                 }
         }
     }

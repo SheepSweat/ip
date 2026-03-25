@@ -37,6 +37,9 @@ public abstract class Parser {
             validateDeadlineInput(arguments);
             String deadline = arguments.trim();
             String[] parts2 = deadline.split("/by");
+            if (parts2.length < 2 ) {
+                throw new InvalidDeadlineException();
+            }
             String deadlineDescription = parts2[0];
             String day = parts2[1];
             String dayFormatted =convertDateFormatter(day);
@@ -48,6 +51,8 @@ public abstract class Parser {
             String eventDescription = arguments.substring(0, fromIndex).trim();
             String from = arguments.substring(fromIndex + 5, toIndex).trim();
             String to = arguments.substring(toIndex + 3).trim();
+            validateDeadlineCommandInput(from);
+            validateDeadlineCommandInput(to);
             return new Event(eventDescription, from, to);
         default:
             throw new Exception("I'm sorry, but I don't know what that means :-(");
@@ -71,6 +76,10 @@ public abstract class Parser {
         if (arguments.isEmpty()) throw new InvalidDeadlineException();
         if (!arguments.contains("/by")) throw new InvalidDeadlineException();
     }
+
+    public static void validateDeadlineCommandInput(String arguments) throws InvalidDeadlineException {
+        if (arguments.isEmpty()) throw new InvalidDeadlineException();
+    }
     /**
      * Validates the structure of an Event command.
      * Checks for a non-empty description and both "/from" and "/to" delimiters.
@@ -79,7 +88,8 @@ public abstract class Parser {
      */
     public static void validateEventInput (String arguments) throws InvalidEventException {
         if (arguments.isEmpty()) throw new InvalidEventException();
-        if(!arguments.contains("/from") && !arguments.contains("/to")) throw new InvalidEventException();
+        if(!arguments.contains("/from")) throw new InvalidEventException();
+        if(!arguments.contains("/to")) throw new InvalidEventException();
     }
     /**
      * Attempts to convert a date string from YYYY-MM-DD format to MMM dd yyyy format.

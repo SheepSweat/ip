@@ -6,6 +6,7 @@ import sixtyseven.Exceptions.EmptyDescriptionException;
 import sixtyseven.Exceptions.EmptyTaskNumberException;
 import sixtyseven.Exceptions.InvalidCommandException;
 import sixtyseven.Exceptions.InvalidTaskNumberException;
+import sixtyseven.Exceptions.Sixty_SevenException;
 import sixtyseven.Parser;
 
 import sixtyseven.Ui;
@@ -32,6 +33,7 @@ public abstract class CommandHandler {
         int taskId;
             switch (command.toLowerCase()) {
             case "list":
+                validateListInput(parts);
                 ui.showList(taskList);
                 break;
             case "add":
@@ -85,6 +87,7 @@ public abstract class CommandHandler {
                 break;
 
             case "find":
+                validateFindInput(parts);
                 ui.showFind(taskList,arguments);
                 break;
             default:
@@ -103,6 +106,10 @@ public abstract class CommandHandler {
         }
     }
 
+    public static void validateFindInput(String[] input ) throws EmptyDescriptionException {
+        if (input.length < 2 || input[1].trim().isEmpty())throw new EmptyDescriptionException();
+    }
+
     /**
      *
      * @param input String array containing the TaskID to validate.
@@ -115,6 +122,12 @@ public abstract class CommandHandler {
             throw new EmptyTaskNumberException();
         } else if ((Integer.parseInt(input[1]) > numberOfTasks)) {
             throw new InvalidTaskNumberException();
+        }
+    }
+
+    public static void validateListInput(String[] input) throws EmptyDescriptionException {
+        if (input.length < 2 || input[1].trim().isEmpty()) {
+            throw new EmptyDescriptionException();
         }
     }
 }
